@@ -1,7 +1,7 @@
 #pragma once
 
 template <typename T>
-class vector
+class Vector
 {
 	int capacity;
 	int size;
@@ -9,128 +9,123 @@ class vector
 	T *pArray;
 
 public:
-	vector()
+	Vector()
+		: capacity(1),
+		  size(0),
+	  	  buffer(0),
+		  pArray(nullptr)
 	{
-		capacity = { 1 };
-		size = { 0 };
-		buffer = { 0 };
-		*pArray = { nullptr };
 	}
 
-	vector(const vector& a)
+	Vector(const Vector& a)
 	{
-
+		capacity = a.capacity;
+		size = a.size;
+		buffer = a.buffer;
+		pArray = a.pArray;
 	}
 
-	vector& operator=(const vector& a)
+	Vector& operator=(const Vector& a)
 	{
-
+		capacity = a.capacity;
+		size = a.size;
+		buffer = a.buffer;
+		pArray = a.pArray;
+		return this;
 	}
 
-	vector(vector&& a)
+	Vector(Vector&& a)
 	{
-
+		capacity = std::move(a.capacity);
+		size = std::move(a.size);
+		buffer = std::move(a.buffer);
+		pArray = std::move(a.pArray);
 	}
 
-	vector& operator=(vector&& a)
+	Vector& operator=(Vector&& a)
 	{
-
+		capacity = std::move(a.capacity);
+		size = std::move(a.size);
+		buffer = std::move(a.buffer);
+		pArray = std::move(a.pArray);
+		return *this;
 	}
 
-	~vector()
+	~Vector()
 	{
 		delete[] pArray;
 	}
 
-	void push_back(T value)
+	void CreateVector()
 	{
-		if (pArray)
+		pArray = new T[capacity];
+	}
+
+	void push_back(const T& value)
+	{
+		if (!pArray)
 		{
-			pArray = new T[capacity];
-			pArray[size] = value;
-			size++;
+			CreateVector();
 		}
 		else if (size == capacity)
 		{
 			capacity *= 2;
-			T* pArrayCopy = new T[capasity];
+			T* pArrayCopy = new T[capañity];
 
 			for (int i = 0; i < size; ++i)
 			{
 				pArrayCopy[i] = pArray[i];
 			}
-			pArrayCopy[size + 1] = value;
-			delete[] pArray;
-
-			pArray = new T[capacity];
-			for (int i = 0; i < size; ++i)
-			{
-				pArray[i] = pArrayCopy[i];
-			}
-
-			size++
-			delete[] pArrayCopy;
-		}
-		else if (size < capacity)
-		{
-			pArray[size + 1] = value;
 			size++;
+
+			delete[] pArray;
+			pArray = pArrayCopy;
 		}
+
+		pArray[size] = value;
+		size++;
 	}
+
 
 	void pop_back()
 	{
-		T* pArrayCopy = new T[capascity];
+		T* pArrayCopy = new T[capacity];
 
 		for (int i = 0; i < (size - 1); ++i)
 		{
 			pArrayCopy[i] = pArray[i];
 		}
+
 		delete[] pArray;
-
-
-		pArray = new T[capacity];
-		for (int i = 0; i < size; ++i)
-		{
-			pArray[i] = pArrayCopy[i];
+		pArray = pArrayCopy;
 		}
 
-		delete[] pArrayCopy;
-		}
-
-	void empty()
+	bool empty()
 	{
-		bool check = {false};
-		if (!pArray)
-		{
-			check = true;
-			cout << check << endl;
-		}
-		else
-		{
-			cout << check << endl;
-		}
+		bool check = false;
+
+		return pArray ? check = true : check;
 	}
 
 	void clear()
 	{
-		~vector();
+		delete[] pArray;
 		pArray = { nullptr };
 	}
 
-	void capasity()
+	int capasity()
 	{
-		cout << "capacity is " << capacity << endl;
+		return capacity;
 	}
 
-	void size()
+	int size()
 	{
-		cout << "size is " << size << endl;
+		return size;
 	}
 
-	void data()
+	T data()
 	{
-		return *pArray;
+		return pArray;
 	}
 
 	T& operator[](T i)

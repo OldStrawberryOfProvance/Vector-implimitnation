@@ -5,8 +5,13 @@ using namespace std;
 
 int main()
 {
-	cout << "Hello world";
+	Vector<int> MyVector;
 
+	cout << MyVector.push_back(3);
+	cout << MyVector.push_back(5);
+	cout << MyVector.push_back(7);
+
+	MyVector.clear();
 
 	return 0;
 }
