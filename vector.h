@@ -1,18 +1,17 @@
 #pragma once
+#include <utility>
 
 template <typename T>
 class Vector
 {
-	int capacity;
-	int size;
-	T buffer;
+	unsigned int capacity;
+	unsigned int size;
 	T *pArray;
 
 public:
 	Vector()
 		: capacity(1),
 		  size(0),
-	  	  buffer(0),
 		  pArray(nullptr)
 	{
 	}
@@ -21,7 +20,6 @@ public:
 	{
 		capacity = a.capacity;
 		size = a.size;
-		buffer = a.buffer;
 		pArray = a.pArray;
 	}
 
@@ -29,7 +27,6 @@ public:
 	{
 		capacity = a.capacity;
 		size = a.size;
-		buffer = a.buffer;
 		pArray = a.pArray;
 		return this;
 	}
@@ -38,7 +35,6 @@ public:
 	{
 		capacity = std::move(a.capacity);
 		size = std::move(a.size);
-		buffer = std::move(a.buffer);
 		pArray = std::move(a.pArray);
 	}
 
@@ -46,7 +42,6 @@ public:
 	{
 		capacity = std::move(a.capacity);
 		size = std::move(a.size);
-		buffer = std::move(a.buffer);
 		pArray = std::move(a.pArray);
 		return *this;
 	}
@@ -58,7 +53,8 @@ public:
 
 	void CreateVector()
 	{
-		pArray = new T[capacity];
+		const unsigned int newCapacity = capacity;
+		pArray = new T[newCapacity];
 	}
 
 	void push_back(const T& value)
@@ -70,13 +66,13 @@ public:
 		else if (size == capacity)
 		{
 			capacity *= 2;
-			T* pArrayCopy = new T[capañity];
+			const unsigned int newCapacity = capacity;
+			T* pArrayCopy = new T[newCapacity];
 
 			for (int i = 0; i < size; ++i)
 			{
 				pArrayCopy[i] = pArray[i];
 			}
-			size++;
 
 			delete[] pArray;
 			pArray = pArrayCopy;
@@ -89,7 +85,8 @@ public:
 
 	void pop_back()
 	{
-		T* pArrayCopy = new T[capacity];
+		const unsigned int newCapacity = capacity;
+		T* pArrayCopy = new T[newCapacity];
 
 		for (int i = 0; i < (size - 1); ++i)
 		{
@@ -113,17 +110,17 @@ public:
 		pArray = { nullptr };
 	}
 
-	int capasity()
+	int Capasity()
 	{
 		return capacity;
 	}
 
-	int size()
+	int Size()
 	{
 		return size;
 	}
 
-	T data()
+	T Data()
 	{
 		return pArray;
 	}

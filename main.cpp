@@ -7,9 +7,14 @@ int main()
 {
 	Vector<int> MyVector;
 
-	cout << MyVector.push_back(3);
-	cout << MyVector.push_back(5);
-	cout << MyVector.push_back(7);
+	MyVector.push_back(3);
+	MyVector.push_back(5);
+	MyVector.push_back(7);
+
+	for (int i = 0; i < MyVector.Size(); ++i)
+	{
+		cout << MyVector[i];
+	}
 
 	MyVector.clear();
 
